@@ -28,7 +28,7 @@
         <logback.version>1.4.5</logback.version>
         <log4j.version>2.17.1</log4j.version>
         <lombok.version>1.18.24</lombok.version>
-        <mysto-ff3.version>1.0.4-SNAPSHOT</mysto-ff3.version>
+        <mysto-ff3.version>1.0.3</mysto-ff3.version>
         <protobuf-java.version>3.19.3</protobuf-java.version>
         <slf4j.version>1.7.36</slf4j.version>
         <tink.version>1.7.0</tink.version>
