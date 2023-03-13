@@ -42,3 +42,4 @@ jobs:
       checkStyleRunAnalysis: true
       pmdRunAnalysis: true
       sonarQubeRunAnalysis: false
+      sonarCloud: bipSonarCloud-Dapla
