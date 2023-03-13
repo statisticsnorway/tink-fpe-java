@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package ssb.crypto.tink;
+
+option java_package = "no.ssb.crypto.tink.proto";
+option java_multiple_files = true;
+
+// FfxMode refers to the algorithm used for encrypting the data.
+// https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-38Gr1-draft.pdf
+enum FfxMode {
+  FF1 = 0;
+
+  // FF3 is deprecated (use FF31 instead)
+  FF3 = 1;
+
+  // FF3-1
+  FF31 = 2;
+}
+
+message FpeFfxKeyParams {
+  // key size in bits. Supported values: 128, 192 or 256
+  uint32 key_size = 1;
+  FfxMode mode = 2;
+  string alphabet = 3;
+}
+
+message FpeFfxKeyFormat {
+  uint32 version = 1;
+  // key size in bits. Supported values: 128, 192 or 256
+  uint32 key_size = 2;
+  FpeFfxKeyParams params = 3;
+}
+
+// key_type: type.googleapis.com/ssb.crypto.tink.FpeFfxKey
+message FpeFfxKey {
+  uint32 version = 1;
+  bytes key_value = 2;
+  FpeFfxKeyParams params = 3;
+}

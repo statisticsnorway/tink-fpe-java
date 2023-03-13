@@ -226,7 +226,7 @@
                         <configuration>
                             <protocVersion>${protobuf-java.version}</protocVersion>
                             <inputDirectories>
-                                <include>proto/src/proto</include>
+                                <include>src/proto</include>
                             </inputDirectories>
                             <outputTargets>
                                 <outputTarget>
