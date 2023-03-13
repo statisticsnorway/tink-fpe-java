@@ -41,5 +41,5 @@ jobs:
       mavenContainer: maven:3.8-openjdk-17
       checkStyleRunAnalysis: true
       pmdRunAnalysis: true
-      sonarQubeRunAnalysis: true
+      sonarQubeRunAnalysis: false
       sonarCloud: bipSonarCloud-Dapla
