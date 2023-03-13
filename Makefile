@@ -1,10 +1,6 @@
 .PHONY: default
 default: | help
 
-.PHONY: init
-init: ## Initialize the project with git submodules
-	git submodule init && git submodule update
-
 .PHONY: build
 build: ## Build the project and install to you local maven repo
 	mvn clean install
