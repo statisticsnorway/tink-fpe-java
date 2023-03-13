@@ -33,7 +33,7 @@ variables:
 
 # Job which will run mvn build, mvn install and Sonar Analysis (if branch is master)
 jobs:
-  - job: Checkout submodules
+  - job: checkoutSubmodules
     pool:
       vmImage: 'ubuntu-latest'
     steps:
