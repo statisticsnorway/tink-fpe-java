@@ -19,10 +19,6 @@ resources:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-  - checkout: self
-    submodules: true
-
 # Variables global to this pipeline
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables
 variables:
@@ -35,9 +31,14 @@ variables:
   - name: MAVEN_OPTS
     value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
 
-
 # Job which will run mvn build, mvn install and Sonar Analysis (if branch is master)
 jobs:
+  - job: Checkout submodules
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - checkout: self
+        submodules: true
 
   - template: java/library-complete-build.yml@templates
     parameters:
