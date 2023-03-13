@@ -28,13 +28,13 @@ public interface Fpe {
          * <p>Raise an error and bail out if encountering non-alphabet characters. Use a 56 bits "null-tweak" and
          * deduce the redaction character automatically from the FPE alphabet (if applicable).</p>
          *
-         * @param ciphertext plaintext to encrypt
+         * @param plaintext plaintext to encrypt
          * @return resulting ciphertext
          * @throws GeneralSecurityException
          */
-        default byte[] encrypt(final byte[] ciphertext)
+        default byte[] encrypt(final byte[] plaintext)
                 throws GeneralSecurityException {
-                return encrypt(ciphertext, FpeParams.DEFAULT);
+                return encrypt(plaintext, FpeParams.DEFAULT);
         }
 
         /**
