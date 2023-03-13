@@ -6,7 +6,7 @@
 
     <groupId>no.ssb.crypto.tink</groupId>
     <artifactId>tink-fpe-java</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>Tink FPE Java</name>
     <description>Format-Preserving Encryption support for Google Tink</description>
 
