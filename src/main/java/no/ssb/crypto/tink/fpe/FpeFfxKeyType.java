@@ -20,7 +20,22 @@ public enum FpeFfxKeyType {
     /**
      * FF3-1 (128 bits) key with alphanumeric alphabet (ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)
      */
-    FPE_FF31_128_ALPHANUMERIC(FF31, 128, CharacterGroup.ALPHANUMERIC)
+    FPE_FF31_128_ALPHANUMERIC(FF31, 128, CharacterGroup.ALPHANUMERIC),
+
+    /**
+     * FF3-1 (256 bits) key with digit-only alphabet (0123456789)
+     */
+    FPE_FF31_256_DIGITS(FF31, 256, CharacterGroup.DIGITS),
+
+    /**
+     * FF3-1 (192 bits) key with digit-only alphabet (0123456789)
+     */
+    FPE_FF31_192_DIGITS(FF31, 192, CharacterGroup.DIGITS),
+
+    /**
+     * FF3-1 (128 bits) key with digit-only alphabet (0123456789)
+     */
+    FPE_FF31_128_DIGITS(FF31, 128, CharacterGroup.DIGITS),
     ;
 
     private final FfxMode mode;
