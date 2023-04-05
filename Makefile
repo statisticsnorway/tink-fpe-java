@@ -5,6 +5,10 @@ default: | help
 build: ## Build the project and install to you local maven repo
 	mvn clean install
 
+.PHONY: run-benchmark
+run-benchmark: ## Run benchmark tests
+	mvn clean package exec:exec -Pbenchmark
+
 .PHONY: release-dryrun
 release-dryrun: ## Simulate a release in order to detect any issues
 	mvn release:prepare release:perform -Darguments="-Dmaven.deploy.skip=true" -DdryRun=true
