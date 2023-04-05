@@ -22,6 +22,7 @@
         <format-preserving-encryption.version>1.0.0</format-preserving-encryption.version>
         <guava.version>31.1-jre</guava.version>
         <jackson.version>2.14.1</jackson.version>
+        <jmh.version>1.35</jmh.version>
         <jsonassert.version>1.5.1</jsonassert.version>
         <junit5.version>5.9.1</junit5.version>
         <logback.version>1.4.5</logback.version>
@@ -344,6 +345,67 @@
                     <url>${artifact-registry.url}/maven-snapshots</url>
                 </snapshotRepository>
             </distributionManagement>
+        </profile>
+        <profile>
+            <id>benchmark</id>
+            <dependencies>
+                <!-- JMH dependencies -->
+                <dependency>
+                    <groupId>org.openjdk.jmh</groupId>
+                    <artifactId>jmh-core</artifactId>
+                    <version>${jmh.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.openjdk.jmh</groupId>
+                    <artifactId>jmh-generator-annprocess</artifactId>
+                    <version>${jmh.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <!-- Add build-helper-maven-plugin -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/benchmark/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Maven Shade plugin configuration -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>3.2.4</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                                <configuration>
+                                    <transformers>
+                                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                            <mainClass>your.package.name.YourBenchmarkRunner</mainClass>
+                                        </transformer>
+                                    </transformers>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
