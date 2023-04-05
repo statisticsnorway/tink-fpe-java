@@ -79,7 +79,7 @@ public class EncryptBenchmark {
     private final static String KEYSET_JSON_FF31_256_ALPHANUMERIC = "{\"primaryKeyId\":1720617146,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/ssb.crypto.tink.FpeFfxKey\",\"value\":\"EiBoBeUFkoew7YJObcgcz1uOmzdhJFkPP7driAxAuS0UiRpCEAIaPkFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXowMTIzNDU2Nzg5\",\"keyMaterialType\":\"SYMMETRIC\"},\"status\":\"ENABLED\",\"keyId\":1720617146,\"outputPrefixType\":\"RAW\"}]}";
 
     // Define sample plaintext inputs for both methods
-    @Param(value = {TINY, SHORT, MEDIUM, LONG})
+    @Param(value = {SHORT, TINY, MEDIUM, LONG})
     public String paramName;
 
     public byte[] plaintextBytes;
