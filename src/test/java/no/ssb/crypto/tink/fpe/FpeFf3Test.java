@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.nio.charset.StandardCharsets;
+
 import static no.ssb.crypto.tink.fpe.FpeFfxKeyType.FPE_FF31_256_ALPHANUMERIC;
 import static no.ssb.crypto.tink.fpe.UnknownCharacterStrategy.*;
 import static no.ssb.crypto.tink.fpe.util.ByteArrayUtil.b2s;
@@ -160,6 +162,33 @@ public class FpeFf3Test {
         KeysetHandle keysetHandle = KeysetHandle.generateNew(KeyTemplates.get(FPE_FF31_256_ALPHANUMERIC.name()));
         String keyset = TinkUtil.toKeysetJson(keysetHandle);
         System.out.println(keyset);
+    }
+
+    @Test
+    void ff31_encrypt_decrypt_with_different_string_encoding() throws Exception {
+        KeysetHandle keysetHandle = TinkUtil.readKeyset(KEYSET_JSON_FF31_256_ALPHANUMERIC);
+        Fpe fpe = keysetHandle.getPrimitive(Fpe.class);
+        FpeParams paramsUtf8 = FpeParams.with().unknownCharacterStrategy(SKIP);
+        FpeParams paramsLatin1 = FpeParams.with().unknownCharacterStrategy(SKIP).charset(StandardCharsets.ISO_8859_1);
+        String plaintextStr = "Lörem ïpsum dôlor sit ämêt.";  // funny characters
+
+        // utf-8
+        byte[] utf8Plaintext = plaintextStr.getBytes(StandardCharsets.UTF_8);
+        byte[] utf8Ciphertext = fpe.encrypt(utf8Plaintext, paramsUtf8);
+        byte[] utf8PlaintextRestored = fpe.decrypt(utf8Ciphertext, paramsUtf8);
+        assertThat(utf8PlaintextRestored).isEqualTo(utf8Plaintext);
+
+        // latin-1 (ISO-8859-1)
+        byte[] latin1Plaintext = plaintextStr.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] latin1Ciphertext = fpe.encrypt(latin1Plaintext, paramsLatin1);
+        byte[] latin1PlaintextRestored = fpe.decrypt(latin1Ciphertext, paramsLatin1);
+        assertThat(latin1Plaintext).isEqualTo(latin1PlaintextRestored);
+
+        // Ensure the original and restored plaintexts match, regardless of the encoding used.
+        assertThat(utf8PlaintextRestored).isEqualTo(utf8PlaintextRestored);
+
+        // Ciphertexts will be different if using different encodings
+        assertThat(utf8Ciphertext).isNotEqualTo(latin1Ciphertext);
     }
 
 }

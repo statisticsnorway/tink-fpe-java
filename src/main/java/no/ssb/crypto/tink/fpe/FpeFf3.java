@@ -105,7 +105,7 @@ public final class FpeFf3 implements Fpe {
         }
 
         String tweak = hexTweakOf(params.getTweak());
-        String pt = b2s(plaintext);
+        String pt = b2s(plaintext, params.getCharset());
 
         CharacterSkipper charSkipper = null;
         if (params.getUnknownCharacterStrategy() == UnknownCharacterStrategy.SKIP) {
@@ -137,7 +137,7 @@ public final class FpeFf3 implements Fpe {
             charSkipper.injectSkippedInto(ciphertext);
         }
 
-        return s2b(ciphertext.toString());
+        return s2b(ciphertext.toString(), params.getCharset());
     }
 
     /**
@@ -157,7 +157,7 @@ public final class FpeFf3 implements Fpe {
         }
 
         String tweak = hexTweakOf(params.getTweak());
-        String ct = b2s(ciphertext);
+        String ct = b2s(ciphertext, params.getCharset());
         CharacterSkipper charSkipper = null;
 
         if (params.getUnknownCharacterStrategy() == UnknownCharacterStrategy.SKIP) {
@@ -177,7 +177,7 @@ public final class FpeFf3 implements Fpe {
             charSkipper.injectSkippedInto(plaintext);
         }
 
-        return s2b(plaintext.toString());
+        return s2b(plaintext.toString(), params.getCharset());
     }
 
     // TODO: Unit test
