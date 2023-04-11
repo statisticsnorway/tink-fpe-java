@@ -35,6 +35,33 @@ dependencies {
 
 // TODO
 
+
+## Benchmark tests
+
+You can execute benchmark tests on your local machine by running `make run-benchmark`.
+
+The following is the results of a benchmark test run on a MacBook Pro with M1 Max CPU and 64 GB memory.
+
+```
+Benchmark                         (content)   Mode  Cnt        Score       Error  Units
+-----------------------------------------------------------------------------------------
+EncryptBenchmark.encryptBytes       6 chars  thrpt    5   142288.875 ±  2194.094  ops/s
+EncryptBenchmark.encryptBytes       2 chars  thrpt    5  2835886.070 ± 42774.201  ops/s
+EncryptBenchmark.encryptBytes      sentence  thrpt    5    33434.985 ±   371.490  ops/s
+EncryptBenchmark.encryptBytes  long-complex  thrpt    5     1352.778 ±    33.741  ops/s
+
+EncryptBenchmark.decryptBytes       6 chars  thrpt    5   134362.809 ±  1088.432  ops/s
+EncryptBenchmark.decryptBytes       2 chars  thrpt    5  3664099.986 ± 10341.415  ops/s
+EncryptBenchmark.decryptBytes      sentence  thrpt    5    31769.839 ±   113.963  ops/s
+EncryptBenchmark.decryptBytes  long-complex  thrpt    5     1254.423 ±    31.235  ops/s
+```
+
+The main use case would be single word inputs, represented by the `6 chars` inputs. The `long-complex` string is
+a >200 words text, with complex typography.
+
+The error column denotes the _confidence interval_. A low error value indicates that results
+are more precise and reliable, while a high error value suggests greater variability in the measurements.
+
 ## Known issues
 
 // TODO: Describe issue about chunking that results in up to last 3 characters not being encrypted.
