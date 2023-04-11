@@ -182,13 +182,14 @@ public class FpeFf3Test {
         byte[] latin1Plaintext = plaintextStr.getBytes(StandardCharsets.ISO_8859_1);
         byte[] latin1Ciphertext = fpe.encrypt(latin1Plaintext, paramsLatin1);
         byte[] latin1PlaintextRestored = fpe.decrypt(latin1Ciphertext, paramsLatin1);
-        assertThat(latin1Plaintext).isEqualTo(latin1PlaintextRestored);
-
-        // Ensure the original and restored plaintexts match, regardless of the encoding used.
-        assertThat(utf8PlaintextRestored).isEqualTo(utf8PlaintextRestored);
+        assertThat(latin1PlaintextRestored).isEqualTo(latin1Plaintext);
 
         // Ciphertexts will be different if using different encodings
         assertThat(utf8Ciphertext).isNotEqualTo(latin1Ciphertext);
+
+        // Ensure the original and restored plaintexts match, regardless of the encoding used.
+        assertThat(plaintextStr).isEqualTo(new String(utf8PlaintextRestored, StandardCharsets.UTF_8));
+        assertThat(plaintextStr).isEqualTo(new String(latin1PlaintextRestored, StandardCharsets.ISO_8859_1));
     }
 
 }
