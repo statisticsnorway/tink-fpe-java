@@ -2,6 +2,7 @@ package no.ssb.crypto.tink.fpe.util;
 
 import lombok.experimental.UtilityClass;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
@@ -50,18 +51,26 @@ public class ByteArrayUtil {
     }
 
     public static String b2s(byte[] bArr) {
+        return b2s(bArr, StandardCharsets.UTF_8);
+    }
+
+    public static String b2s(byte[] bArr, Charset charset) {
         if (bArr == null || bArr.length == 0) {
             return null;
         }
 
-        return new String(bArr, StandardCharsets.UTF_8);
+        return new String(bArr, charset);
     }
 
     public static byte[] s2b(String s) {
+        return s2b(s, StandardCharsets.UTF_8);
+    }
+
+    public static byte[] s2b(String s, Charset charset) {
         if (s == null || s.length() == 0) {
             return null;
         }
-        return s.getBytes(StandardCharsets.UTF_8);
+        return s.getBytes(charset);
     }
 
 }

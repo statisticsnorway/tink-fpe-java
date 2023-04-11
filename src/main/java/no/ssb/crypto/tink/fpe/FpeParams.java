@@ -4,6 +4,9 @@ package no.ssb.crypto.tink.fpe;
 import lombok.*;
 import no.ssb.crypto.tink.fpe.util.ByteArrayUtil;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  * FpeParams is used as an argument when invoking encrypt and decrypt functions. It allows the user to specify
  * additional details such as how to handle unknown characters, using a custom tweak, etc.
@@ -49,6 +52,13 @@ public class FpeParams {
     private Character redactionChar = null;
 
     /**
+     * charset is the character set the underlying implementation expects when working with Strings.
+     *
+     * Defaults to UTF-8, but can be overridden if e.g. the plaintext is encoded differently.
+     */
+    private Charset charset = StandardCharsets.UTF_8;
+
+    /**
      * unknownCharacterStrategy defines the strategy for how the encryption/decryption process should handle characters
      * that are not in the FPE alphabet.
      */
@@ -75,6 +85,16 @@ public class FpeParams {
      */
     public FpeParams redactionChar(char redactionChar) {
         this.redactionChar = redactionChar;
+        return this;
+    }
+
+    /**
+     * charset is the character set the underlying implementation expects when working with Strings.
+     *
+     * Defaults to UTF-8, but can be overridden if e.g. the plaintext is encoded differently.
+     */
+    public FpeParams charset(Charset charset) {
+        this.charset = charset;
         return this;
     }
 
