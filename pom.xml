@@ -5,7 +5,7 @@
 
     <groupId>no.ssb.crypto.tink</groupId>
     <artifactId>tink-fpe-java</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
     <name>Tink FPE Java</name>
     <description>Format-Preserving Encryption support for Google Tink</description>
 
@@ -50,7 +50,7 @@
         <connection>scm:git:git://github.com/statisticsnorway/tink-fpe-java.git</connection>
         <developerConnection>scm:git:git@github.com:statisticsnorway/tink-fpe-java.git</developerConnection>
         <url>https://github.com/statisticsnorway/tink-fpe</url>
-        <tag>HEAD</tag>
+        <tag>tink-fpe-java-0.0.3</tag>
     </scm>
 
     <dependencies>
