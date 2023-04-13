@@ -1,12 +1,7 @@
 package no.ssb.crypto.tink.fpe;
 
 import com.privacylogistics.FF3Cipher;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.nio.charset.StandardCharsets;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MystoTest {
 
