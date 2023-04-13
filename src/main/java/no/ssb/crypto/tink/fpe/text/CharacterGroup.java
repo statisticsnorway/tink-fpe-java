@@ -138,60 +138,60 @@ public enum CharacterGroup {
 
     /**
      * Default alphanumeric characters
-     * {@code ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789}
+     * {@code 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}
      */
-    ALPHANUMERIC(LETTERS, DIGITS),
+    ALPHANUMERIC(DIGITS, LETTERS),
 
     /**
      * Default lowercase alphanumeric characters
-     * {@code abcdefghijklmnopqrstuvwxyz0123456789}
+     * {@code 0123456789abcdefghijklmnopqrstuvwxyz}
      */
-    ALPHANUMERIC_LOWERCASE(LETTERS_LOWERCASE, DIGITS),
+    ALPHANUMERIC_LOWERCASE(DIGITS, LETTERS_LOWERCASE),
 
     /**
      * Default lowercase alphanumeric characters
-     * {@code ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789}
+     * {@code 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ}
      */
-    ALPHANUMERIC_UPPERCASE(LETTERS_UPPERCASE, DIGITS),
+    ALPHANUMERIC_UPPERCASE(DIGITS, LETTERS_UPPERCASE),
 
     /**
      * Norwegian alphanumeric characters
-     * {@code ABCDEFGHIJKLMNOPQRSTUVWXYZÅÆØabcdefghijklmnopqrstuvwxyzåæø0123456789}
+     * {@code 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÅÆØabcdefghijklmnopqrstuvwxyzåæø}
      */
-    ALPHANUMERIC_NO(LETTERS_NO, DIGITS),
+    ALPHANUMERIC_NO(DIGITS, LETTERS_NO),
 
     /**
      * Norwegian lowercase alphanumeric characters
-     * {@code abcdefghijklmnopqrstuvwxyzåæø0123456789}
+     * {@code 0123456789abcdefghijklmnopqrstuvwxyzåæø}
      */
-    ALPHANUMERIC_NO_LOWERCASE(LETTERS_LOWERCASE, LETTERS_EXT_NO_LOWERCASE, DIGITS),
+    ALPHANUMERIC_NO_LOWERCASE(DIGITS, LETTERS_LOWERCASE, LETTERS_EXT_NO_LOWERCASE),
 
     /**
      * Norwegian uppercase alphanumeric characters
-     * {@code ABCDEFGHIJKLMNOPQRSTUVWXYZÅÆØ0123456789}
+     * {@code 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÅÆØ}
      */
-    ALPHANUMERIC_NO_UPPERCASE(LETTERS_UPPERCASE, LETTERS_EXT_NO_UPPERCASE, DIGITS),
+    ALPHANUMERIC_NO_UPPERCASE(DIGITS, LETTERS_UPPERCASE, LETTERS_EXT_NO_UPPERCASE),
 
     /**
      * All (including extended) alphanumeric characters
-     * {@code ABCDEFGHIJKLMNOPQRSTUVWXYZÅÆØabcdefghijklmnopqrstuvwxyzåæø0123456789}
+     * {@code 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÅÆØabcdefghijklmnopqrstuvwxyzåæø}
      */
-    ALPHANUMERIC_ALL(LETTERS_ALL, DIGITS),
+    ALPHANUMERIC_ALL(DIGITS, LETTERS_ALL),
 
     /**
      * All alphanumeric lowercase characters (including extended)
-     * {@code abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþß0123456789}
+     * {@code 0123456789abcdefghijklmnopqrstuvwxyzàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþß}
      */
-    ALPHANUMERIC_ALL_LOWERCASE(LETTERS_LOWERCASE, LETTERS_EXT_LOWERCASE, DIGITS),
+    ALPHANUMERIC_ALL_LOWERCASE(DIGITS, LETTERS_LOWERCASE, LETTERS_EXT_LOWERCASE),
 
     /**
      * All alphanumeric uppercase characters (including extended)
-     * {@code ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝ0123456789}
+     * {@code 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝ}
      */
-    ALPHANUMERIC_ALL_UPPERCASE(LETTERS_UPPERCASE, LETTERS_EXT_NO_UPPERCASE, DIGITS),
+    ALPHANUMERIC_ALL_UPPERCASE(DIGITS, LETTERS_UPPERCASE, LETTERS_EXT_NO_UPPERCASE),
 
     /**
-     * Any non-control from the basic and exteded latin unicode charset
+     * Any non-control from the basic and extended latin unicode charset
      */
     ANYCHAR(UnicodeChars.stringOf(
       subset(BASIC_LATIN).and(CharType.ALPHANUMERIC),
