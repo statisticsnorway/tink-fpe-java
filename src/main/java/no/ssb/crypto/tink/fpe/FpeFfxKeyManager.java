@@ -12,7 +12,10 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.ExtensionRegistryLite;
 import com.google.protobuf.InvalidProtocolBufferException;
 import no.ssb.crypto.tink.fpe.text.CharacterGroup;
-import no.ssb.crypto.tink.proto.*;
+import no.ssb.crypto.tink.proto.FfxMode;
+import no.ssb.crypto.tink.proto.FpeFfxKey;
+import no.ssb.crypto.tink.proto.FpeFfxKeyFormat;
+import no.ssb.crypto.tink.proto.FpeFfxKeyParams;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 import static java.lang.Character.UnicodeBlock.BASIC_LATIN;
 import static java.lang.Character.UnicodeBlock.LATIN_1_SUPPLEMENT;
-import static no.ssb.crypto.tink.fpe.text.UnicodeChars.*;
 import static no.ssb.crypto.tink.fpe.text.UnicodeChars.CharType.*;
+import static no.ssb.crypto.tink.fpe.text.UnicodeChars.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class UnicodeCharsTest {

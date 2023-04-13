@@ -16,7 +16,10 @@
 
 package no.ssb.crypto.tink.fpe;
 
-import com.google.crypto.tink.*;
+import com.google.crypto.tink.CryptoFormat;
+import com.google.crypto.tink.PrimitiveSet;
+import com.google.crypto.tink.PrimitiveWrapper;
+import com.google.crypto.tink.Registry;
 import com.google.crypto.tink.internal.MonitoringUtil;
 import com.google.crypto.tink.internal.MutableMonitoringRegistry;
 import com.google.crypto.tink.monitoring.MonitoringClient;

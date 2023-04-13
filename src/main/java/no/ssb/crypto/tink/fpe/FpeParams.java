@@ -1,7 +1,9 @@
 package no.ssb.crypto.tink.fpe;
 
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
 import no.ssb.crypto.tink.fpe.util.ByteArrayUtil;
 
 import java.nio.charset.Charset;

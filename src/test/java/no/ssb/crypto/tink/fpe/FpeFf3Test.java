@@ -19,9 +19,9 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class FpeFf3Test {
 
-    private final static String KEYSET_JSON_FF31_256_ALPHANUMERIC = "{\"primaryKeyId\":1720617146,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/ssb.crypto.tink.FpeFfxKey\",\"value\":\"EiBoBeUFkoew7YJObcgcz1uOmzdhJFkPP7driAxAuS0UiRpCEAIaPkFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXowMTIzNDU2Nzg5\",\"keyMaterialType\":\"SYMMETRIC\"},\"status\":\"ENABLED\",\"keyId\":1720617146,\"outputPrefixType\":\"RAW\"}]}";
-    private final static String KEYSET_JSON_FF31_192_ALPHANUMERIC = "{\"primaryKeyId\":1928982491,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/ssb.crypto.tink.FpeFfxKey\",\"value\":\"EhizrnA3ckTddEhK3xWtrTMe6MEGpDFGXIUaQhACGj5BQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MDEyMzQ1Njc4OQ==\",\"keyMaterialType\":\"SYMMETRIC\"},\"status\":\"ENABLED\",\"keyId\":1928982491,\"outputPrefixType\":\"RAW\"}]}";
-    private final static String KEYSET_JSON_FF31_128_ALPHANUMERIC = "{\"primaryKeyId\":1382079328,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/ssb.crypto.tink.FpeFfxKey\",\"value\":\"EhD4978shQNRpBNaBjbF4KO4GkIQAho+QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ejAxMjM0NTY3ODk=\",\"keyMaterialType\":\"SYMMETRIC\"},\"status\":\"ENABLED\",\"keyId\":1382079328,\"outputPrefixType\":\"RAW\"}]}";
+    private final static String KEYSET_JSON_FF31_256_ALPHANUMERIC = "{\"primaryKeyId\":832997605,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/ssb.crypto.tink.FpeFfxKey\",\"value\":\"EiCCNkK81HHmUY4IjEzXDrGLOT5t+7PGQ1eIyrGqGa4S3BpCEAIaPjAxMjM0NTY3ODlBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWmFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6\",\"keyMaterialType\":\"SYMMETRIC\"},\"status\":\"ENABLED\",\"keyId\":832997605,\"outputPrefixType\":\"RAW\"}]}";
+    private final static String KEYSET_JSON_FF31_192_ALPHANUMERIC = "{\"primaryKeyId\":1472396213,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/ssb.crypto.tink.FpeFfxKey\",\"value\":\"EhjK5UIa3TqJKbcdrnLeGt/9qppevXZJgQ8aQhACGj4wMTIzNDU2Nzg5QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5eg==\",\"keyMaterialType\":\"SYMMETRIC\"},\"status\":\"ENABLED\",\"keyId\":1472396213,\"outputPrefixType\":\"RAW\"}]}";
+    private final static String KEYSET_JSON_FF31_128_ALPHANUMERIC = "{\"primaryKeyId\":1285197635,\"key\":[{\"keyData\":{\"typeUrl\":\"type.googleapis.com/ssb.crypto.tink.FpeFfxKey\",\"value\":\"EhBiuZBtjIqW+UdSRoGclarMGkIQAho+MDEyMzQ1Njc4OUFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo=\",\"keyMaterialType\":\"SYMMETRIC\"},\"status\":\"ENABLED\",\"keyId\":1285197635,\"outputPrefixType\":\"RAW\"}]}";
 
     private final static String longText = "CHAPTER 1. Loomings.\n" +
             "\n" +
@@ -58,7 +58,7 @@ public class FpeFf3Test {
                 .isThrownBy(() -> {
                     fpe.encrypt(s2b(plaintext));
                 })
-                .withMessage("Plaintext can only contain characters from the alphabet 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'");
+                .withMessage("Plaintext can only contain characters from the alphabet '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'");
     }
 
     @Test
@@ -87,16 +87,16 @@ public class FpeFf3Test {
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "Foobar;6jZemW",
-            "Foo bar;6jZ emW",
-            "If I could gather all the stars and hold them in my hand;Tw 8 Vqp9k FVfYSv DqJ eSe 5nL68 BA8 SkV8 vhX4 Dc SP XImS",
+            "Foobar;b7kOqd",
+            "Foo bar;b7k Oqd",
+            "If I could gather all the stars and hold them in my hand;sr D Gm8se ic4Wid mTd Scz FpVR9 gdn 5dcW 5PCh xD 6C 9GFk",
             "A;A",
             "123;123",
-            "abcd;QCeY",
-            "ab cd;QC eY",
+            "abcd;NcFL",
+            "ab cd;Nc FL",
             "abc#;abc#",
-            "012345678901234567890123456789AB;ULxO2Z2FeOfIpESyrRCBIj2bABCu4sAB",
-            "012345678901234567890123456789#;ULxO2Z2FeOfIpESyrRCBIj2bABCu4s#"
+            "012345678901234567890123456789AB;3wOIPgonKck22IVcL19ti42uFmKM8mAB",
+            "012345678901234567890123456789#;3wOIPgonKck22IVcL19ti42uFmKM8m#"
     })
     void ff31_encrypt_decrypt_alphanumeric_with_skip(String plaintext, String expectedCiphertext) throws Exception {
         KeysetHandle keysetHandle = TinkUtil.readKeyset(KEYSET_JSON_FF31_256_ALPHANUMERIC);
@@ -111,16 +111,16 @@ public class FpeFf3Test {
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "Foobar;6jZemW;Foobar",
-            "Foo bar;qFejvAC;FooXbar",
-            "If I could gather all the stars and hold them in my hand;qslVtH0Zu2Gcy3I89NeWRwGShILxssNPGM7LABI8wxLcY23UGevd2NaV;IfXIXcouldXgatherXallXtheXstarsXandXholdXthemXinXmyXhand",
+            "Foobar;b7kOqd;Foobar",
+            "Foo bar;EXoaFHU;FooXbar",
+            "If I could gather all the stars and hold them in my hand;t75QqfsrW4ilmkoZzDnBpeyj2il6445WMw63II8UB8kBD5PQESgVng7e;IfXIXcouldXgatherXallXtheXstarsXandXholdXthemXinXmyXhand",
             "A;A;A",
             "123;123;123",
-            "abcd;QCeY;abcd",
-            "ab cd;KtxVK;abXcd",
-            "abc#;SuU6;abcX",
-            "012345678901234567890123456789AB;ULxO2Z2FeOfIpESyrRCBIj2bABCu4sAB;012345678901234567890123456789AB",
-            "012345678901234567890123456789#;ULxO2Z2FeOfIpESyrRCBIj2bABCu4sX;012345678901234567890123456789X"
+            "abcd;NcFL;abcd",
+            "ab cd;kADJO;abXcd",
+            "abc#;tHSF;abcX",
+            "012345678901234567890123456789AB;3wOIPgonKck22IVcL19ti42uFmKM8mAB;012345678901234567890123456789AB",
+            "012345678901234567890123456789#;3wOIPgonKck22IVcL19ti42uFmKM8mX;012345678901234567890123456789X"
     })
     void ff31_encrypt_decrypt_alphanumeric_with_redact(String plaintext, String expectedCiphertext, String expectedPlaintext) throws Exception {
         KeysetHandle keysetHandle = TinkUtil.readKeyset(KEYSET_JSON_FF31_256_ALPHANUMERIC);
@@ -135,16 +135,16 @@ public class FpeFf3Test {
 
     @ParameterizedTest
     @CsvSource(delimiter = ';', value = {
-            "Foobar;6jZemW;Foobar",
-            "Foo bar;6jZemW;Foobar",
-            "If I could gather all the stars and hold them in my hand;Tw8Vqp9kFVfYSvDqJeSe5nL68BA8SkV8vhX4DcSPXImS;IfIcouldgatherallthestarsandholdtheminmyhand",
+            "Foobar;b7kOqd;Foobar",
+            "Foo bar;b7kOqd;Foobar",
+            "If I could gather all the stars and hold them in my hand;srDGm8seic4WidmTdSczFpVR9gdn5dcW5PChxD6C9GFk;IfIcouldgatherallthestarsandholdtheminmyhand",
             "A;A;A",
             "123;123;123",
-            "abcd;QCeY;abcd",
-            "ab cd;QCeY;abcd",
+            "abcd;NcFL;abcd",
+            "ab cd;NcFL;abcd",
             "abc#;abc;abc",
-            "012345678901234567890123456789AB;ULxO2Z2FeOfIpESyrRCBIj2bABCu4sAB;012345678901234567890123456789AB",
-            "012345678901234567890123456789#;ULxO2Z2FeOfIpESyrRCBIj2bABCu4s;012345678901234567890123456789"
+            "012345678901234567890123456789AB;3wOIPgonKck22IVcL19ti42uFmKM8mAB;012345678901234567890123456789AB",
+            "012345678901234567890123456789#;3wOIPgonKck22IVcL19ti42uFmKM8m;012345678901234567890123456789"
     })
     void ff31_encrypt_decrypt_alphanumeric_with_delete(String plaintext, String expectedCiphertext, String expectedPlaintext) throws Exception {
         KeysetHandle keysetHandle = TinkUtil.readKeyset(KEYSET_JSON_FF31_256_ALPHANUMERIC);

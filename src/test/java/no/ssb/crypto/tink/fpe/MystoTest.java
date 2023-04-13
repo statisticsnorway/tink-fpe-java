@@ -7,7 +7,8 @@ public class MystoTest {
 
     private static final String KEY = "2DE79D232DF5585D68CE47882AE256D6";
     private static final String TWEAK = "CBD09280979564";
-    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final String TWEAK2 = "00000000000000";
+    private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     @Test
     void encryptDecrypt() throws Exception {
@@ -20,4 +21,5 @@ public class MystoTest {
         System.out.println("plaintext:  " + plaintext);
         System.out.println("ciphertext: " + ciphertext);
     }
+
 }
