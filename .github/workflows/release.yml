@@ -58,6 +58,8 @@ jobs:
 
       - name: Perform release and publish jar
         id: release_jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mvn --batch-mode -P ssb-bip -DskipTests release:prepare
           TAG=$(git describe --abbrev=0 --tags)
