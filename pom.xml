@@ -14,7 +14,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <artifact-registry.url>artifactregistry://europe-north1-maven.pkg.dev/artifact-registry-5n/dapla-pseudo-maven</artifact-registry.url>
+        <artifact-registry.url>artifactregistry://europe-north1-maven.pkg.dev/artifact-registry-5n/dapla-pseudo-maven/</artifact-registry.url>
+        <github.repository>statisticsnorway/tink-fpe-java</github.repository>
 
         <!-- Dependency versions -->
         <assertj.version>3.23.1</assertj.version>
@@ -46,9 +47,8 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git://github.com/statisticsnorway/tink-fpe-java.git</connection>
-        <developerConnection>scm:git:git@github.com:statisticsnorway/tink-fpe-java.git</developerConnection>
-        <url>https://github.com/statisticsnorway/tink-fpe</url>
+        <developerConnection>scm:git:https://github.com/${github.repository}.git</developerConnection>
+        <url>https://github.com/${github.repository}</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -219,7 +219,7 @@
     <repositories>
         <repository>
             <id>artifact-registry</id>
-            <url>${artifact-registry.url}/maven-releases</url>
+            <url>${artifact-registry.url}</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -229,7 +229,7 @@
         </repository>
         <repository>
             <id>artifact-registry-snapshot</id>
-            <url>${artifact-registry.url}/maven-snapshots</url>
+            <url>${artifact-registry.url}</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -291,11 +291,11 @@
             <distributionManagement>
                 <repository>
                     <id>artifact-registry</id>
-                    <url>${artifact-registry.url}/maven-releases</url>
+                    <url>${artifact-registry.url}</url>
                 </repository>
                 <snapshotRepository>
                     <id>artifact-registry-snapshots</id>
-                    <url>${artifact-registry.url}/maven-snapshots</url>
+                    <url>${artifact-registry.url}</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
