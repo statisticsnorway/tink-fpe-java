@@ -5,10 +5,6 @@ on:
     branches:
       - release
 
-env:
-  REGISTRY: europe-north1-docker.pkg.dev/artifact-registry-5n/dapla-pseudo-maven
-  IMAGE: tink-fpe-java
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -17,11 +13,18 @@ jobs:
       id-token: write
 
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app_id: ${{ secrets.DAPLA_BOT_APP_ID }}
+          private_key: ${{ secrets.DAPLA_BOT_PRIVATE_KEY }}
+
       - uses: actions/checkout@v3
         with:
+          token: ${{ steps.app-token.outputs.token }}
           ref: refs/heads/main
 
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: 21
@@ -48,10 +51,15 @@ jobs:
           git config user.email "ghactions@ssb.no"
           git config user.name "GitHub Actions"
 
+      - uses: s4u/maven-settings-action@v2.8.0
+        id: maven_settings
+        with:
+          servers: '[{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
+
       - name: Perform release and publish jar
         id: release_jar
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           mvn --batch-mode -P ssb-bip -DskipTests release:prepare
           TAG=$(git describe --abbrev=0 --tags)
@@ -71,21 +79,21 @@ jobs:
         uses: release-drafter/release-drafter@v5
         id: create_github_release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
           tag: ${{ steps.release_jar.outputs.tag }}
 
       - name: Publish GitHub release
         uses: eregon/publish-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
           release_id: ${{ steps.create_github_release.outputs.id }}
 
       - name: Upload assets to GitHub release
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
           asset_path: ${{ steps.release_jar.outputs.artifact_path }}
           asset_name: ${{ steps.release_jar.outputs.artifact_id }}.jar
@@ -95,6 +103,6 @@ jobs:
       - name: Publish GitHub release
         uses: eregon/publish-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
           release_id: ${{ steps.create_github_release.outputs.id }}
