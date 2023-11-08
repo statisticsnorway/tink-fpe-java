@@ -14,8 +14,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <artifact-registry.url>artifactregistry://europe-north1-maven.pkg.dev/artifact-registry-14da
-        </artifact-registry.url>
+        <artifact-registry.url>artifactregistry://europe-north1-maven.pkg.dev/artifact-registry-5n/dapla-pseudo-maven</artifact-registry.url>
 
         <!-- Dependency versions -->
         <assertj.version>3.23.1</assertj.version>
@@ -26,7 +25,7 @@
         <jsonassert.version>1.5.1</jsonassert.version>
         <junit5.version>5.9.1</junit5.version>
         <logback.version>1.4.5</logback.version>
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.30</lombok.version>
         <mysto-ff3.version>1.0.3</mysto-ff3.version>
         <protobuf-java.version>3.19.3</protobuf-java.version>
         <slf4j.version>2.0.6</slf4j.version>
@@ -220,9 +219,7 @@
     <repositories>
         <repository>
             <id>artifact-registry</id>
-            <url>
-                artifactregistry://europe-north1-maven.pkg.dev/artifact-registry-14da/maven-releases
-            </url>
+            <url>${artifact-registry.url}/maven-releases</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -232,9 +229,7 @@
         </repository>
         <repository>
             <id>artifact-registry-snapshot</id>
-            <url>
-                artifactregistry://europe-north1-maven.pkg.dev/artifact-registry-14da/maven-snapshots
-            </url>
+            <url>${artifact-registry.url}/maven-snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
