@@ -59,12 +59,12 @@ jobs:
       - name: Perform release and publish jar
         id: release_jar
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          mvn --batch-mode -P ssb-bip -DskipTests release:prepare
+          mvn --batch-mode release:prepare -Darguments="-Dmaven.deploy.skip=true -DskipTests"
           TAG=$(git describe --abbrev=0 --tags)
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
-          mvn --batch-mode -P ssb-bip -DskipTests release:perform
+          mvn --batch-mode release:perform -Darguments="-Dmaven.deploy.skip=true -DskipTests"
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
           ARTIFACT_PATH=$(realpath ./target/$ARTIFACT_ID*.jar)
