@@ -82,3 +82,19 @@ jobs:
         with:
           release_id: ${{ steps.create_github_release.outputs.id }}
 
+      - name: Upload assets to GitHub release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          asset_path: ${{ steps.release_jar.outputs.artifact_path }}
+          asset_name: ${{ steps.release_jar.outputs.artifact_id }}.jar
+          asset_content_type: application/java-archive
+          upload_url: ${{ steps.create_github_release.outputs.upload_url }}
+
+      - name: Publish GitHub release
+        uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.create_github_release.outputs.id }}
