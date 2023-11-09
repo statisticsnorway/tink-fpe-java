@@ -50,8 +50,6 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           mvn --batch-mode -P ssb-bip package
-          TAG=$(git describe --abbrev=0 --tags)
-          echo "tag=${TAG}" >> $GITHUB_OUTPUT
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
           ARTIFACT_PATH=$(realpath "./target/$ARTIFACT_ID*.jar")
