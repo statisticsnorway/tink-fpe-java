@@ -44,6 +44,20 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Maven release and deploy to GitHub packages
+        id: release_jar
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          mvn --batch-mode -P ssb-bip package
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
+          ARTIFACT_PATH=$(realpath ./target/$ARTIFACT_ID*.jar)
+          echo ${ARTIFACT_PATH}
+          ls -al ${ARTIFACT_PATH}
+          echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
+          
+
       - name: Build with Maven and deploy to Artifact Registry
         run: mvn --batch-mode -P ssb-bip deploy
 
