@@ -51,8 +51,9 @@ jobs:
         run: |
           mvn --batch-mode -P ssb-bip package
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
-          ARTIFACT_PATH=$(realpath ./target/$ARTIFACT_ID*.jar)
+          ARTIFACT_PATH=$(realpath ./target/$ARTIFACT_ID-$VERSION.jar)
           echo ${ARTIFACT_PATH}
           ls -al ${ARTIFACT_PATH}
           echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
