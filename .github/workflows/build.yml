@@ -65,4 +65,4 @@ jobs:
           echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
           gh version
           gh release list
-          gh release upload v0.0.9 ${ARTIFACT_PATH}
+          gh release upload v0.0.3 ${ARTIFACT_PATH}
