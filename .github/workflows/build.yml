@@ -44,12 +44,18 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Maven release and deploy to GitHub packages
+      - name: Maven release
         id: release_jar
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           mvn --batch-mode -P ssb-bip package
+
+      - name: Upload assets to GitHub release
+        id: upload_jars
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
@@ -57,8 +63,4 @@ jobs:
           echo ${ARTIFACT_PATH}
           ls -al ${ARTIFACT_PATH}
           echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
-          
-
-      - name: Build with Maven and deploy to Artifact Registry
-        run: mvn --batch-mode -P ssb-bip deploy
-
+          gh release list  
