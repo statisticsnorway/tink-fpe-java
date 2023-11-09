@@ -69,7 +69,7 @@ jobs:
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
           ARTIFACT_PATH=$(realpath "./target/$ARTIFACT_ID*.jar")
-          echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
+          echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub release draft
         uses: release-drafter/release-drafter@v5
