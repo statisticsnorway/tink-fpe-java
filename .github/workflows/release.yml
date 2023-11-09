@@ -48,15 +48,15 @@ jobs:
 
       - name: Configure Git user
         run: |
-          git config user.email "ghactions@ssb.no"
-          git config user.name "GitHub Actions"
+          git config user.name "dapla-bot[bot]"
+          git config user.email "143391972+dapla-bot[bot]@users.noreply.github.com"
 
       - uses: s4u/maven-settings-action@v2.8.0
         id: maven_settings
         with:
           servers: '[{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
 
-      - name: Perform release and publish jar
+      - name: Maven release and deploy to GitHub packages
         id: release_jar
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -64,16 +64,11 @@ jobs:
           mvn --batch-mode release:prepare -Darguments="-Dmaven.deploy.skip=true -DskipTests"
           TAG=$(git describe --abbrev=0 --tags)
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
-          mvn --batch-mode release:perform -Darguments="-Dmaven.deploy.skip=true -DskipTests"
+          mvn --batch-mode release:perform
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
           ARTIFACT_PATH=$(realpath ./target/$ARTIFACT_ID*.jar)
           echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
-
-      - env:
-          EVENT_CONTEXT: ${{ toJSON(github.event) }}
-        run: |
-          echo $EVENT_CONTEXT
 
       - name: Create GitHub release draft
         uses: release-drafter/release-drafter@v5
