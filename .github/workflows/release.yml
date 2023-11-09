@@ -79,13 +79,6 @@ jobs:
         with:
           tag: ${{ steps.release_jar.outputs.tag }}
 
-      - name: Publish GitHub release
-        uses: eregon/publish-release@v1
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        with:
-          release_id: ${{ steps.create_github_release.outputs.id }}
-
       - name: Upload assets to GitHub release
         uses: actions/upload-release-asset@v1
         env:
