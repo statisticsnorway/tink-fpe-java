@@ -54,7 +54,7 @@ jobs:
       - name: Upload assets to GitHub release
         id: upload_jars
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
@@ -63,4 +63,6 @@ jobs:
           echo ${ARTIFACT_PATH}
           ls -al ${ARTIFACT_PATH}
           echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
+          gh version
+          gh release list
           gh release upload v0.0.9 ${ARTIFACT_PATH}
