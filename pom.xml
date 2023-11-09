@@ -5,7 +5,7 @@
 
     <groupId>no.ssb.crypto.tink</groupId>
     <artifactId>tink-fpe-java</artifactId>
-    <version>0.0.8-SNAPSHOT</version>
+    <version>0.0.8</version>
     <name>Tink FPE Java</name>
     <description>Format-Preserving Encryption support for Google Tink</description>
 
@@ -51,7 +51,7 @@
     <scm>
         <developerConnection>scm:git:https://github.com/${github.repository}.git</developerConnection>
         <url>https://github.com/${github.repository}</url>
-        <tag>HEAD</tag>
+        <tag>v0.0.8</tag>
     </scm>
 
     <dependencies>
