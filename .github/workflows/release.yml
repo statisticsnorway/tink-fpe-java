@@ -64,8 +64,11 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           mvn --batch-mode release:prepare -Darguments="-Dmaven.deploy.skip=true -DskipTests"
+          # Get the release version from the pom.xml before the next snapshot increment
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           mvn --batch-mode release:perform
           TAG=$(git describe --abbrev=0 --tags)
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub release draft
@@ -81,10 +84,10 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           # Get all files matching the artifact id and version (source, javadoc, etc.)
-          ARTIFACT_GLOB=(./target/$ARTIFACT_ID-$VERSION*.jar)
+          ARTIFACT_GLOB=(./target/$ARTIFACT_ID-${{ steps.release_jar.outputs.version }}*.jar)
           for file in "${ARTIFACT_GLOB[@]}"; do
+            echo "Uploading $file"
             gh release upload ${{ steps.create_github_release.outputs.tag_name }} $file
           done
 
