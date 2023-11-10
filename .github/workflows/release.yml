@@ -63,13 +63,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          mvn --batch-mode release:prepare -Darguments="-Dmaven.deploy.skip=true -DskipTests"
           # Get the release version from the pom.xml before the next snapshot increment
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          mvn --batch-mode release:perform
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed "s/-SNAPSHOT//)
           TAG=$(git describe --abbrev=0 --tags)
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          # Perform the release/deploy and increment the version to the next snapshot
+          mvn --batch-mode release:prepare -Darguments="-Dmaven.deploy.skip=true -DskipTests"
+          mvn --batch-mode release:perform
 
       - name: Create GitHub release draft
         uses: release-drafter/release-drafter@v5
