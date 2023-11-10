@@ -58,11 +58,9 @@ jobs:
         run: |
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
-          ARTIFACT_PATH=$(realpath ./target/$ARTIFACT_ID-$VERSION.jar)
-          echo ${ARTIFACT_PATH}
-          ls -al ${ARTIFACT_PATH}
-          echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
-          gh version
-          gh release list
-          gh release upload v0.0.9 ${ARTIFACT_PATH}
+          # Get all files matching the artifact id and version (source, javadoc, etc.)
+          ARTIFACT_GLOB=(./target/$ARTIFACT_ID-$VERSION*.jar)
+          for file in "${ARTIFACT_GLOB[@]}"; do
+            echo $file
+            gh release upload v0.0.9 $file
+          done
