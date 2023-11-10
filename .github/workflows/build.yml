@@ -55,7 +55,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          mvn --batch-mode -P ssb-bip package -DskipTests
+          mvn --batch-mode release:prepare -P ssb-bip package -DskipTests -DdryRun=true
+          mvn --batch-mode release:perform -DdryRun=true
           echo "tag=v0.0.11" >> $GITHUB_OUTPUT
           
       - name: Create GitHub release draft
@@ -75,7 +76,5 @@ jobs:
           # Get all files matching the artifact id and version (source, javadoc, etc.)
           ARTIFACT_GLOB=(./target/$ARTIFACT_ID-$VERSION*.jar)
           for file in "${ARTIFACT_GLOB[@]}"; do
-            echo ${{ steps.create_github_release.outputs.tag_name }}
             echo $file
-            gh release upload ${{ steps.create_github_release.outputs.tag_name }} $file
           done
