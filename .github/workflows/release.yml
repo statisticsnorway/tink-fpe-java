@@ -83,8 +83,8 @@ jobs:
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           # Get all files matching the artifact id and version (source, javadoc, etc.)
-          ARTIFACT_GLOB=$(realpath ./target/$ARTIFACT_ID-$VERSION*.jar)
-          for file in $ARTIFACT_GLOB; do
+          ARTIFACT_GLOB=(./target/$ARTIFACT_ID-$VERSION*.jar)
+          for file in "${ARTIFACT_GLOB[@]}"; do
             gh release upload ${{ steps.create_github_release.outputs.tag_name }} $file
           done
 
