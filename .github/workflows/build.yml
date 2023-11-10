@@ -50,19 +50,18 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           mvn --batch-mode -P ssb-bip package
-
-      - name: Upload assets to GitHub release
-        id: upload_jars
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_OUTPUT
-          ARTIFACT_PATH=$(realpath ./target/$ARTIFACT_ID-$VERSION.jar)
-          echo ${ARTIFACT_PATH}
-          ls -al ${ARTIFACT_PATH}
-          echo -n "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
-          gh version
-          gh release list
-          gh release upload v0.0.3 ${ARTIFACT_PATH}
+          ARTIFACT_GLOB=$(realpath "./target/$ARTIFACT_ID-$VERSION*.jar")
+          echo ${ARTIFACT_GLOB}
+          ls -al ${ARTIFACT_GLOB}
+          echo -n "artifact_glob=${ARTIFACT_GLOB}" >> $GITHUB_OUTPUT
+
+      - name: Upload Assets
+        uses: shogo82148/actions-upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        with:
+          upload_url: "https://uploads.github.com/repos/statisticsnorway/tink-fpe-java/releases/128531058/assets{?name,label}"
+          asset_path: ${{ steps.release_jar.outputs.artifact_glob }}
+
