@@ -21,6 +21,12 @@ jobs:
       id-token: write
 
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.DAPLA_BOT_APP_ID }}
+          private-key: ${{ secrets.DAPLA_BOT_PRIVATE_KEY }}
+    
       - uses: actions/checkout@v3
 
       - name: Set up JDK 21
@@ -49,18 +55,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          mvn --batch-mode -P ssb-bip package
-
-      - name: Upload assets to GitHub release
-        id: upload_jars
+          mvn --batch-mode -P ssb-bip package -DskipTests
+          TAG=$(git describe --abbrev=0 --tags)
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          
+      - name: Create GitHub release draft
+        uses: release-drafter/release-drafter@v5
+        id: create_github_release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        with:
+          tag: ${{ steps.release_jar.outputs.tag }}
+
+      - name: Upload assets to GitHub release draft
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           # Get all files matching the artifact id and version (source, javadoc, etc.)
           ARTIFACT_GLOB=(./target/$ARTIFACT_ID-$VERSION*.jar)
           for file in "${ARTIFACT_GLOB[@]}"; do
+            echo ${{ steps.create_github_release.outputs.tag_name }}
             echo $file
-            gh release upload v0.0.9 $file
+            gh release upload ${{ steps.create_github_release.outputs.tag_name }} $file
           done
