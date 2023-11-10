@@ -76,5 +76,5 @@ jobs:
           # Get all files matching the artifact id and version (source, javadoc, etc.)
           ARTIFACT_GLOB=(./target/$ARTIFACT_ID-$VERSION*.jar)
           for file in "${ARTIFACT_GLOB[@]}"; do
-            echo $file
+            ls $file
           done
