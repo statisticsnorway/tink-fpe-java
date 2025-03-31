@@ -29,7 +29,7 @@
         <lombok.version>1.18.30</lombok.version>
         <mysto-ff3.version>1.0.3</mysto-ff3.version>
         <protobuf-java.version>3.19.3</protobuf-java.version>
-        <slf4j.version>2.0.6</slf4j.version>
+        <slf4j.version>2.0.11</slf4j.version>
         <tink.version>1.10.0</tink.version>
 
         <!-- Plugin/extension versions -->
