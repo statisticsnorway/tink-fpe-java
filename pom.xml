@@ -21,7 +21,7 @@
         <assertj.version>3.23.1</assertj.version>
         <format-preserving-encryption.version>1.0.0</format-preserving-encryption.version>
         <guava.version>32.0.0-jre</guava.version>
-        <jackson.version>2.16.1</jackson.version>
+        <jackson.version>2.18.3</jackson.version>
         <jmh.version>1.35</jmh.version>
         <jsonassert.version>1.5.1</jsonassert.version>
         <junit5.version>5.9.1</junit5.version>
